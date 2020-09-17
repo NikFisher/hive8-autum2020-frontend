@@ -1,0 +1,12 @@
+{
+	"rewrites": [
+		{
+			"source": "/assets/**/**",
+			"function": "{GCP-PROJECT-NAME}.firebaseapp.com"
+		},
+		{
+			"source": "**",
+			"function": "app"
+		}
+	]
+}

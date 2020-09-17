@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"outDir": "./dist",
+		"module": "esnext",
+		"target": "es5",
+		"jsx": "react",
+		"lib": ["esnext", "dom"],
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noEmitOnError": true
+	}
+}
