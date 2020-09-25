@@ -9,8 +9,8 @@ const SomeView = Loadable({
 	loader: () => import('containers/SomeView'),
 	loading: () => <Loader />
 });
-const TodoForm = Loadable({
-	loader: () => import('containers/TodoForm'),
+const TodoView = Loadable({
+	loader: () => import('containers/TodoView'),
 	loading: () => <Loader />
 });
 const ExamplesView = Loadable({
@@ -32,7 +32,7 @@ class Routes extends React.Component {
 			<Switch>
 				<Route exact path="/" render={() => <SomeView />} />
 				<Route exact path="/examples" render={() => <ExamplesView />} />
-				<Route exact path="/todos" render={() => <TodoForm />} />
+				<Route exact path="/todos" render={() => <TodoView />} />
 				<Route render={() => <Redirect to="/" />} />
 			</Switch>
 		);

@@ -1,16 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import H3 from 'components/H3'
-import GridChild from 'components/GridChild'
-import Box from 'components/Box'
+import PropTypes from 'prop-types';
 
-import Loader from 'components/Loader';
+import View from '../View/index';
 
-import View from 'containers/View';
-import TodoComposition from 'compositions/SomeComposition/todosComposition';
+import Todo from '../../compositions/Todo/index';
 
-class SomeView extends React.Component {
+import Box from '../../components/Box/index';
+import GridChild from '../../components/GridChild/index';
+import H3 from '../../components/H3/index';
+
+class TodoView extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -46,10 +46,10 @@ class SomeView extends React.Component {
 			<View title="Some view">
 				<Box>
 					<GridChild>
-						<H3> This is TodoForm with H3 component </H3>
+						<H3> This is Todo View with H3 component </H3>
 						<h3>Regular h3</h3>
 						{/* {this.state.isLoading && <Loader />} */}
-						{!this.state.isLoading && <TodoComposition />}
+						{!this.state.isLoading && <Todo name="YANICA" />}
 					</GridChild>
 				</Box>
 			</View>
@@ -57,14 +57,14 @@ class SomeView extends React.Component {
 	}
 }
 
-SomeView.propTypes = {
+TodoView.propTypes = {
 	appState: PropTypes.object,
 	data: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
-SomeView.defaultTypes = {
+TodoView.defaultTypes = {
 	appState: {},
 	data: {}
 };
 
-export default withRouter(SomeView);
+export default withRouter(TodoView);
