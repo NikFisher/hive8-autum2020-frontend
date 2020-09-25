@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import H3 from 'components/H3'
 import GridChild from 'components/GridChild'
+import Box from 'components/Box'
 
 import Loader from 'components/Loader';
 
 import View from 'containers/View';
-import SomeComposition from 'compositions/SomeComposition';
+import TodoComposition from 'compositions/SomeComposition/todosComposition';
 
 class SomeView extends React.Component {
 	constructor(props) {
@@ -43,12 +44,14 @@ class SomeView extends React.Component {
 	render() {
 		return (
 			<View title="Some view">
-				<GridChild>
-					{/* {this.state.isLoading && <Loader />}
-				{!this.state.isLoading && <SomeComposition />} */}
-					<H3> This is TodoForm with H3 component </H3>
-					<h3>Regular h3</h3>
-				</GridChild>
+				<Box>
+					<GridChild>
+						<H3> This is TodoForm with H3 component </H3>
+						<h3>Regular h3</h3>
+						{/* {this.state.isLoading && <Loader />} */}
+						{!this.state.isLoading && <TodoComposition />}
+					</GridChild>
+				</Box>
 			</View>
 		);
 	}
