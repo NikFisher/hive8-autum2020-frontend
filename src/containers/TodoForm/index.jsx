@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import H3 from 'components/H3'
+import GridChild from 'components/GridChild'
 
 import Loader from 'components/Loader';
 
@@ -41,9 +43,12 @@ class SomeView extends React.Component {
 	render() {
 		return (
 			<View title="Some view">
-				{this.state.isLoading && <Loader />}
-				{!this.state.isLoading && <SomeComposition />}
-				Heej from SomeView
+				<GridChild>
+					{/* {this.state.isLoading && <Loader />}
+				{!this.state.isLoading && <SomeComposition />} */}
+					<H3> This is TodoForm with H3 component </H3>
+					<h3>Regular h3</h3>
+				</GridChild>
 			</View>
 		);
 	}

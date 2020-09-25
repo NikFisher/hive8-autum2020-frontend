@@ -114,7 +114,6 @@ class App extends React.Component {
 						close={this.closeConsentModal}
 					/>
 				)}
-
 				<Routes appState={this.state.appState} data={this.state.data} />
 			</>
 		);
