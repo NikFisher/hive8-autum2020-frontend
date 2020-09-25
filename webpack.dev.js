@@ -14,7 +14,7 @@ module.exports = merge(common, {
 		contentBase: srcDir,
 		publicPath: "/",
 		hot: true,
-		host: "0.0.0.0"
+		host: "localhost"
 	},
 	devtool: "cheap-module-source-map",
 	plugins: [
