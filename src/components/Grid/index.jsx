@@ -7,18 +7,20 @@ import breakpoints from 'helpers/constants/breakpoints.mjs';
 
 const spaces = Object.keys(spacing);
 
-const Grid = props => {
-	if (props.children) {
-		props.children = props.children.length <= 1 ? [props.children] : props.children;
-		props.children.forEach(child => {
-			if (child) {
-				if (props.childPadding) {
-					child.attributes['padding'] = props.childPadding;
-				}
-			}
-		});
-	}
-	return <GridStyled className="Grid" {...props} />;
+const Grid = ({ children, childPadding, ...props }) => {
+	console.log(children);
+
+	return (
+		<GridStyled className="Grid" {...props}>
+			{React.Children.map(children, child =>
+				React.isValidElement(child) && childPadding
+					? React.cloneElement(child, {
+							padding: childPadding
+					  })
+					: child
+			)}
+		</GridStyled>
+	);
 };
 
 Grid.propTypes = {
