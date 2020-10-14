@@ -18,6 +18,11 @@ const ExamplesView = Loadable({
 	loading: () => <Loader />
 });
 
+const EditTaskView = Loadable({
+	loader: () => import('containers/EditTaskView'),
+	loading: () => <Loader />
+});
+
 class Routes extends React.Component {
 	constructor(props) {
 		super(props);
@@ -33,6 +38,7 @@ class Routes extends React.Component {
 				<Route exact path="/" render={() => <SomeView />} />
 				<Route exact path="/examples" render={() => <ExamplesView />} />
 				<Route exact path="/todos" render={() => <TodoView />} />
+				<Route exact path="/EditTaskView" render={() => <EditTaskView />} />
 				<Route render={() => <Redirect to="/" />} />
 			</Switch>
 		);

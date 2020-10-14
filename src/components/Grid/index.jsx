@@ -8,8 +8,6 @@ import breakpoints from 'helpers/constants/breakpoints.mjs';
 const spaces = Object.keys(spacing);
 
 const Grid = ({ children, childPadding, ...props }) => {
-	console.log(children);
-
 	return (
 		<GridStyled className="Grid" {...props}>
 			{React.Children.map(children, child =>

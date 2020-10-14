@@ -40,6 +40,7 @@ Input.propTypes = {
 	label: PropTypes.string,
 	name: PropTypes.string,
 	accept: PropTypes.string,
+	defaultValue: PropTypes.defaultValue,
 	required: PropTypes.bool,
 	capture: PropTypes.bool,
 	onChange: PropTypes.func,
