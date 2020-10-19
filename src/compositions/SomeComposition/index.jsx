@@ -96,7 +96,7 @@ const SomeComposition = () => {
 									onChange={() => changeItemStatus(index, !toDoItem.status)}
 									checked={toDoItem.isCompleted}
 									delete={() => deleteTask(toDoItem)}
-									nameOfTask={toDoItem.taskID}
+									nameOfTask={toDoItem.name}
 								>
 									{toDoItem.name}
 								</ToDoListItem>
