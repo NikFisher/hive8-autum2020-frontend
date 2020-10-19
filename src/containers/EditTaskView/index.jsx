@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -8,6 +9,8 @@ import View from 'containers/View';
 import SomeComposition from 'compositions/SomeComposition';
 
 import EditTaskComposition from 'compositions/EditTaskComposition';
+
+//import {useParams} from 'react-router';
 
 class EditTaskView extends React.Component {
 	constructor(props) {
@@ -41,10 +44,14 @@ class EditTaskView extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
+
 		return (
 			<View title="Edit Task">
 				{this.state.isLoading && <Loader />}
-				{!this.state.isLoading && <EditTaskComposition />}
+				{!this.state.isLoading && (
+					<EditTaskComposition taskName={this.props.match.params.taskname} />
+				)}
 				Heej from EditTask
 			</View>
 		);

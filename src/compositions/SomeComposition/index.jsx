@@ -11,15 +11,18 @@ import { render } from 'react-dom';
 import Router from '../../routes/index';
 import Link from '../../components/Link/index';
 import EditTaskView from '../../containers/EditTaskView/index';
-import { totalmem } from 'os';
 
 const SomeComposition = () => {
 	const [allTasks, setAllTasks] = useState(
 		['mow the lawn', 'clean bathroom', 'walk the dog', 'feed the cat'].map(val => ({
+			taskID: 0,
 			name: val,
 			isCompleted: false
 		}))
 	);
+	allTasks[1].taskID = 1;
+	allTasks[2].taskID = 2;
+	allTasks[3].taskID = 3;
 
 	// eslint-disable-next-line no-console
 	const submit = e => {
@@ -86,12 +89,14 @@ const SomeComposition = () => {
 						)
 						.map((toDoItem, index) => {
 							console.log(toDoItem);
+
 							return (
 								<ToDoListItem
 									key={toDoItem + index}
 									onChange={() => changeItemStatus(index, !toDoItem.status)}
 									checked={toDoItem.isCompleted}
 									delete={() => deleteTask(toDoItem)}
+									nameOfTask={toDoItem.taskID}
 								>
 									{toDoItem.name}
 								</ToDoListItem>

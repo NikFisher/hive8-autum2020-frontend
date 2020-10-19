@@ -13,11 +13,15 @@ import { render } from 'react-dom';
 import Router from '../../routes/index';
 import Link from '../../components/Link/index';
 import EditTaskView from '../../containers/EditTaskView/index';
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router';
 
-const EditTaskComposition = () => {
+const EditTaskComposition = props => {
 	const onSaveClick = e => {
 		console.log('hello from onSaveClick');
 	};
+
+	//const [name] = useParams();
 	return (
 		<div>
 			<Box>
@@ -33,10 +37,10 @@ const EditTaskComposition = () => {
 					<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 3 }]}>
 						<H1>Edit Task</H1>
 						<H3>Rename:</H3>
-						<input defaultValue="walk the dog" />
+						<input defaultValue={props.taskName} />
 						<H3>Order in list:</H3>
 						<input defaultValue="1" />
-						<button onClick={onSaveClick}>save chagnes</button>
+						<button onClick={onSaveClick}>save changes</button>
 						<Link to="/SomeComposition">
 							<button>cancel</button>
 						</Link>
@@ -55,7 +59,9 @@ const EditTaskComposition = () => {
 	);
 };
 
-EditTaskComposition.propTypes = {};
+EditTaskComposition.propTypes = {
+	taskName: PropTypes.string
+};
 
 EditTaskComposition.defaultTypes = {};
 

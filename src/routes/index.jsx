@@ -38,7 +38,7 @@ class Routes extends React.Component {
 				<Route exact path="/" render={() => <SomeView />} />
 				<Route exact path="/examples" render={() => <ExamplesView />} />
 				<Route exact path="/todos" render={() => <TodoView />} />
-				<Route exact path="/EditTaskView" render={() => <EditTaskView />} />
+				<Route exact path="/EditTaskView/:taskname" render={() => <EditTaskView />} />
 				<Route render={() => <Redirect to="/" />} />
 			</Switch>
 		);
