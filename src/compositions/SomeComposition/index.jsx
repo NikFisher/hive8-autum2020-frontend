@@ -97,6 +97,7 @@ const SomeComposition = () => {
 									checked={toDoItem.isCompleted}
 									delete={() => deleteTask(toDoItem)}
 									nameOfTask={toDoItem.name}
+									task={toDoItem}
 								>
 									{toDoItem.name}
 								</ToDoListItem>

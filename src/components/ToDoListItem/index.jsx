@@ -37,7 +37,13 @@ const ToDoListItem = props => (
 				<h2> {props.children}</h2>
 			</GridChild>
 			<GridChild columnSpan={[{ columns: 4 }, { break: breakpoints.mobile, columns: 1 }]}>
-				<Link to={`EditTaskView/${props.nameOfTask}`}>
+				<Link
+					to={{
+						pathname: `EditTaskView/${props.task.taskID}`,
+						state: { taskObject: props.task },
+						exact: true
+					}}
+				>
 					<Button onClick={props.edit}>Edit</Button>
 				</Link>
 				<Button onClick={props.delete}>Delete</Button>
@@ -53,7 +59,8 @@ ToDoListItem.propTypes = {
 	edit: PropTypes.function,
 	onChange: PropTypes.function,
 	checked: PropTypes.bool,
-	nameOfTask: PropTypes.string
+	nameOfTask: PropTypes.string,
+	task: PropTypes.object
 };
 
 ToDoListItem.defaultTypes = {

@@ -49,9 +49,7 @@ class EditTaskView extends React.Component {
 		return (
 			<View title="Edit Task">
 				{this.state.isLoading && <Loader />}
-				{!this.state.isLoading && (
-					<EditTaskComposition taskName={this.props.match.params.taskname} />
-				)}
+				{!this.state.isLoading && <EditTaskComposition taskName={this.props.match.params.taskid} />}
 				Heej from EditTask
 			</View>
 		);

@@ -14,7 +14,6 @@ import Router from '../../routes/index';
 import Link from '../../components/Link/index';
 import EditTaskView from '../../containers/EditTaskView/index';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router';
 
 const EditTaskComposition = props => {
 	const onSaveClick = e => {
