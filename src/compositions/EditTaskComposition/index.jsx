@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { Children, useState } from 'react';
+import React, { Children, useEffect, useState } from 'react';
 import Grid from '../../components/Grid/index';
 import GridChild from '../../components/GridChild/index';
 import breakpoints from 'helpers/constants/breakpoints.mjs';
@@ -14,13 +14,46 @@ import Router from '../../routes/index';
 import Link from '../../components/Link/index';
 import EditTaskView from '../../containers/EditTaskView/index';
 import PropTypes from 'prop-types';
+import { firestore } from '../../helpers/firebase/storage/init.mjs';
 
 const EditTaskComposition = props => {
+	const [task, setTask] = useState({ taskName: '', isCompleted: false });
+
+	useEffect(() => {
+		var docRef = firestore.collection('toDoTasks').doc(props.taskId);
+		docRef
+			.get()
+			.then(function(doc) {
+				if (doc.exists) {
+					//console.log("Document data:", doc.data());
+					setTask({ taskName: doc.data().taskName, isCompleted: doc.data().isCompleted });
+				} else {
+					// doc.data() will be undefined in this case
+					console.log('No such document!');
+				}
+			})
+			.catch(function(error) {
+				console.log('Error getting document:', error);
+			});
+
+		//console.log(receivedTask);
+		//setTask(receivedTask);
+	}, []);
+
 	const onSaveClick = e => {
-		console.log('hello from onSaveClick');
+		firestore
+			.collection('toDoTasks')
+			.doc(props.taskId)
+			.update({ taskName: task.taskName });
+		console.log(task);
 	};
 
-	//const [name] = useParams();
+	const handleChange = e => {
+		var updatedTask = { taskName: e.target.value, isCompleted: task.isCompleted };
+		console.log(updatedTask);
+		setTask(updatedTask);
+	};
+
 	return (
 		<div>
 			<Box>
@@ -36,7 +69,7 @@ const EditTaskComposition = props => {
 					<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 3 }]}>
 						<H1>Edit Task</H1>
 						<H3>Rename:</H3>
-						<input defaultValue={props.taskName} />
+						<input defaultValue={task.taskName} onChange={handleChange} />
 						<H3>Order in list:</H3>
 						<input defaultValue="1" />
 						<button onClick={onSaveClick}>save changes</button>
@@ -59,7 +92,7 @@ const EditTaskComposition = props => {
 };
 
 EditTaskComposition.propTypes = {
-	taskName: PropTypes.string
+	taskId: PropTypes.string
 };
 
 EditTaskComposition.defaultTypes = {};

@@ -11,19 +11,36 @@ import { render } from 'react-dom';
 import Router from '../../routes/index';
 import Link from '../../components/Link/index';
 import EditTaskView from '../../containers/EditTaskView/index';
+import { firestore } from '../../helpers/firebase/storage/init.mjs';
 
 const SomeComposition = () => {
-	const [allTasks, setAllTasks] = useState(
-		['mow the lawn', 'clean bathroom', 'walk the dog', 'feed the cat'].map(val => ({
-			taskID: 0,
-			name: val,
-			isCompleted: false
-		}))
-	);
-	allTasks[1].taskID = 1;
-	allTasks[2].taskID = 2;
-	allTasks[3].taskID = 3;
+	const [allTasks, setAllTasks] = useState([]);
 
+	useEffect(() => {
+		/*firestore.collection("toDoTasks")
+.get()
+.then((querySnapshot) => {
+	const data = querySnapshot.docs.map((doc)=>{
+	return {id: doc.id, ...doc.data()}
+}) 
+	console.log(data)
+	setAllTasks(data)
+});
+}*/ updateTaskList();
+	}, []);
+
+	function updateTaskList() {
+		firestore
+			.collection('toDoTasks')
+			.get()
+			.then(querySnapshot => {
+				const data = querySnapshot.docs.map(doc => {
+					return { id: doc.id, ...doc.data() };
+				});
+				console.log(data);
+				setAllTasks(data);
+			});
+	}
 	// eslint-disable-next-line no-console
 	const submit = e => {
 		e.preventDefault();
@@ -31,11 +48,14 @@ const SomeComposition = () => {
 		console.log(e.target.elements.toDoTask.value);
 		const newActivity = { name: e.target.elements.toDoTask.value, isCompleted: false };
 
-		const newAllTasks = [newActivity, ...allTasks];
+		//const newAllTasks = [newActivity, ...allTasks];
 		console.log(e.target.elements.toDoTask.value);
 
-		setAllTasks(newAllTasks);
-		//setCompletedTasks(newToDoList)
+		firestore.collection('toDoTasks').add({
+			isCompleted: false,
+			taskName: newActivity.name
+		});
+		updateTaskList();
 	};
 
 	const [status, setStatus] = useState('all');
@@ -44,16 +64,21 @@ const SomeComposition = () => {
 		console.log('all tasks', allTasks);
 	}, [allTasks, status]);
 
-	const changeItemStatus = (index, newStatus) => {
-		let newItemList = allTasks; //hämta nuvarande todo lista
-		newItemList[index].isCompleted = newStatus;
-		console.log(newItemList);
-		//setToDoList(newItemList);
-		setAllTasks(newItemList);
+	const changeItemStatus = (task, newStatus) => {
+		firestore
+			.collection('toDoTasks')
+			.doc(task.id)
+			.update({ isCompleted: newStatus });
+		updateTaskList();
 	};
 
 	const deleteTask = task => {
-		setAllTasks(allTasks.filter(el => el.name != task.name));
+		firestore
+			.collection('toDoTasks')
+			.doc(task.id)
+			.delete();
+		updateTaskList();
+		//setAllTasks(allTasks.filter(el => el.name != task.name));
 	};
 
 	return (
@@ -93,13 +118,13 @@ const SomeComposition = () => {
 							return (
 								<ToDoListItem
 									key={toDoItem + index}
-									onChange={() => changeItemStatus(index, !toDoItem.status)}
+									onChange={() => changeItemStatus(toDoItem, !toDoItem.status)}
 									checked={toDoItem.isCompleted}
 									delete={() => deleteTask(toDoItem)}
 									nameOfTask={toDoItem.name}
 									task={toDoItem}
 								>
-									{toDoItem.name}
+									{toDoItem.taskName}
 								</ToDoListItem>
 							);
 						})}

@@ -33,7 +33,7 @@ const ToDoListItem = props => {
 				<GridChild columnSpan={[{ columns: 4 }, { break: breakpoints.mobile, columns: 1 }]}>
 					<Link
 						to={{
-							pathname: `/EditTaskView/${props.task.taskID}`,
+							pathname: `/EditTaskView/${props.task.id}`,
 							state: { taskObject: props.task }
 						}}
 					>
