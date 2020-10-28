@@ -17,21 +17,13 @@ const SomeComposition = () => {
 	const [allTasks, setAllTasks] = useState([]);
 
 	useEffect(() => {
-		/*firestore.collection("toDoTasks")
-.get()
-.then((querySnapshot) => {
-	const data = querySnapshot.docs.map((doc)=>{
-	return {id: doc.id, ...doc.data()}
-}) 
-	console.log(data)
-	setAllTasks(data)
-});
-}*/ updateTaskList();
+		updateTaskList();
 	}, []);
 
 	function updateTaskList() {
 		firestore
 			.collection('toDoTasks')
+			.orderBy('order', 'asc')
 			.get()
 			.then(querySnapshot => {
 				const data = querySnapshot.docs.map(doc => {
@@ -53,7 +45,8 @@ const SomeComposition = () => {
 
 		firestore.collection('toDoTasks').add({
 			isCompleted: false,
-			taskName: newActivity.name
+			taskName: newActivity.name,
+			order: allTasks.length + 1
 		});
 		updateTaskList();
 	};
@@ -62,6 +55,10 @@ const SomeComposition = () => {
 
 	useEffect(() => {
 		console.log('all tasks', allTasks);
+		//const orderedTasks = allTasks
+
+		//orderedTasks.sort((a,b)=>(a.order-b.order))
+		//setAllTasks(orderedTasks)
 	}, [allTasks, status]);
 
 	const changeItemStatus = (task, newStatus) => {

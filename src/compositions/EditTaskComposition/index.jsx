@@ -18,6 +18,7 @@ import { firestore } from '../../helpers/firebase/storage/init.mjs';
 
 const EditTaskComposition = props => {
 	const [task, setTask] = useState({ taskName: '', isCompleted: false });
+	const [allTasks, setAllTasks] = useState([]);
 
 	useEffect(() => {
 		var docRef = firestore.collection('toDoTasks').doc(props.taskId);
@@ -26,7 +27,11 @@ const EditTaskComposition = props => {
 			.then(function(doc) {
 				if (doc.exists) {
 					//console.log("Document data:", doc.data());
-					setTask({ taskName: doc.data().taskName, isCompleted: doc.data().isCompleted });
+					setTask({
+						taskName: doc.data().taskName,
+						isCompleted: doc.data().isCompleted,
+						order: doc.data().order
+					});
 				} else {
 					// doc.data() will be undefined in this case
 					console.log('No such document!');
@@ -40,17 +45,52 @@ const EditTaskComposition = props => {
 		//setTask(receivedTask);
 	}, []);
 
+	useEffect(() => {
+		firestore
+			.collection('toDoTasks')
+			.orderBy('order', 'asc')
+			.get()
+			.then(querySnapshot => {
+				const data = querySnapshot.docs.map(doc => {
+					return { id: doc.id, ...doc.data() };
+				});
+				//console.log(data);
+				setAllTasks(data);
+			});
+	}, [allTasks, setAllTasks]);
+
 	const onSaveClick = e => {
 		firestore
 			.collection('toDoTasks')
 			.doc(props.taskId)
-			.update({ taskName: task.taskName });
+			.update({ taskName: task.taskName, order: task.order });
 		console.log(task);
 	};
 
-	const handleChange = e => {
+	const handleNameChange = e => {
 		var updatedTask = { taskName: e.target.value, isCompleted: task.isCompleted };
 		console.log(updatedTask);
+		setTask(updatedTask);
+	};
+
+	const handleOrderChange = e => {
+		var newOrder = parseInt(e.target.value);
+		var taskList = allTasks;
+
+		taskList.map((taskObject, index = newOrder) => {
+			if (taskObject.id != task.id) {
+				taskObject.order++;
+			}
+		});
+		task.order = newOrder;
+		setTask(task);
+		console.log(newOrder);
+		console.log(taskList);
+		var updatedTask = {
+			taskName: task.taskName,
+			isCompleted: task.isCompleted,
+			order: parseInt(e.target.value)
+		};
 		setTask(updatedTask);
 	};
 
@@ -69,9 +109,9 @@ const EditTaskComposition = props => {
 					<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 3 }]}>
 						<H1>Edit Task</H1>
 						<H3>Rename:</H3>
-						<input defaultValue={task.taskName} onChange={handleChange} />
+						<input defaultValue={task.taskName} onChange={handleNameChange} />
 						<H3>Order in list:</H3>
-						<input defaultValue="1" />
+						<input defaultValue={task.order} onChange={handleOrderChange} />
 						<button onClick={onSaveClick}>save changes</button>
 						<Link to="/SomeComposition">
 							<button>cancel</button>
