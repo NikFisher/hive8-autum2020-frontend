@@ -99,7 +99,7 @@ const EditTaskComposition = props => {
 			<Box>
 				<Grid columns={5}>
 					<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
-						<Link to="/SomeComposition">
+						<Link to="/somecomposition">
 							<Button>Back</Button>
 						</Link>
 					</GridChild>
@@ -113,7 +113,7 @@ const EditTaskComposition = props => {
 						<H3>Order in list:</H3>
 						<input defaultValue={task.order} onChange={handleOrderChange} />
 						<button onClick={onSaveClick}>save changes</button>
-						<Link to="/SomeComposition">
+						<Link to="/somecomposition">
 							<button>cancel</button>
 						</Link>
 					</GridChild>

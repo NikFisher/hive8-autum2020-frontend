@@ -15313,6 +15313,11 @@ p-retry@^3.0.1:
   dependencies:
     retry "^0.12.0"
 
+p-sleep@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/p-sleep/-/p-sleep-1.1.0.tgz#a6c9333059b5103c3c0e46bcbba95a1f7969095b"
+  integrity sha512-bwP3GKZirBUYMtiUuBrheLUQdRXVeE/pmHOaLpNJzNfAD4b5AjDn6l823brXcQFade4G/g7GMNQ3KV86E8EaEw==
+
 p-timeout@^1.1.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/p-timeout/-/p-timeout-1.2.1.tgz#5eb3b353b7fce99f101a1038880bb054ebbea386"
@@ -17076,6 +17081,13 @@ react-textarea-autosize@^7.0.4:
   dependencies:
     "@babel/runtime" "^7.1.2"
     prop-types "^15.6.0"
+
+react-tinder-card@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-tinder-card/-/react-tinder-card-1.3.1.tgz#6474c542d77481f296e6a8bc3f866b1d680aae6a"
+  integrity sha512-3W4ltSEz44KHqUbds38/dPPkPkSfYdyqVbB9SyV0Lg7juh/BjmIG+YGGrHgxTQhJ5t5RxXUDdIHQ9ewanV4iTg==
+  dependencies:
+    p-sleep "^1.1.0"
 
 react-transition-group@^2.0.0:
   version "2.9.0"
