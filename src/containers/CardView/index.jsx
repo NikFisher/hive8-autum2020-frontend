@@ -12,6 +12,7 @@ import Box from '../../components/Box/index';
 import breakpoints from '../../helpers/constants/breakpoints.mjs';
 import CardviewStyled from './CardViewStyled';
 import CardViewStyled from './CardViewStyled';
+import image from '../../assets/img/image.jpg';
 
 var pictures = [
 	'../../assets/img/image.jpg',
@@ -21,45 +22,58 @@ var pictures = [
 	'../../assets/img/wrench2.jpg'
 ];
 
-class CardView extends React.Component {
-	render() {
-		const onSwipe = direction => {
-			console.log('You swiped: ' + direction);
-		};
+const CardView = () => {
+	const [images, setImages] = useState(pictures);
 
-		const onCardLeftScreen = myIdentifier => {
-			console.log(myIdentifier + ' left the screen');
-		};
-		//const [pictures, setPictures] = useState(['../../assets/img/image.jpg', '../../assets/img/hammer.jpg', '../../assets/img/screwdriver.jpg']);
+	const [chosenCards, setChosenCards] = useState([]);
 
-		return (
-			<div>
-				<link href="https://fonts.googleapis.com/css?family=Damion&display=swap" rel="stylesheet" />
-				<link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet" />
+	const [currentIndex, setCurrentIndex] = useState(0);
 
-				<Grid columns={4}>
-					<GridChild style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-						<CardViewStyled>
-							<div className="cardContainer">
-								{pictures.map(picture => (
-									<TinderCard
-										key={picture}
-										onSwipe={onSwipe}
-										onCardLeftScreen={() =>
-											onCardLeftScreen('fooBar')
-										} /*preventSwipe={['right', 'left'] }*/
-									>
-										<div style={{ backgroundImage: 'url(' + picture + ')' }} className="card"></div>
-									</TinderCard>
-								))}
-							</div>
-						</CardViewStyled>
-					</GridChild>
-				</Grid>
-			</div>
-		);
-	}
-}
+	const onSwipe = (direction, card) => {
+		console.log('You swiped: ' + direction);
+		if (direction == 'right') {
+			const listOfChosenCards = chosenCards;
+			listOfChosenCards.push(card);
+			setChosenCards(listOfChosenCards);
+		}
+
+		setCurrentIndex(i => i + 1);
+
+		console.log(chosenCards);
+	};
+
+	const onCardLeftScreen = myIdentifier => {
+		console.log(myIdentifier + ' left the screen');
+	};
+
+	//const [pictures, setPictures] = useState(['../../assets/img/image.jpg', '../../assets/img/hammer.jpg', '../../assets/img/screwdriver.jpg']);
+
+	return (
+		<div>
+			<link href="https://fonts.googleapis.com/css?family=Damion&display=swap" rel="stylesheet" />
+			<link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet" />
+
+			<Grid columns={4}>
+				<GridChild style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+					<CardViewStyled>
+						<div className="cardContainer">
+							{images.map(picture => (
+								<TinderCard
+									key={picture}
+									className="swipe"
+									onSwipe={dir => onSwipe(dir, picture)}
+									onCardLeftScreen={() => onCardLeftScreen('fooBar')}
+								>
+									<div style={{ backgroundImage: 'url(' + picture + ')' }} className="card"></div>
+								</TinderCard>
+							))}
+						</div>
+					</CardViewStyled>
+				</GridChild>
+			</Grid>
+		</div>
+	);
+};
 
 CardView.prototypes = {
 	appState: PropTypes.object,
