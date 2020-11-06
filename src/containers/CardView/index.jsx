@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes, { node } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ import breakpoints from '../../helpers/constants/breakpoints.mjs';
 import CardviewStyled from './CardViewStyled';
 import CardViewStyled from './CardViewStyled';
 import image from '../../assets/img/image.jpg';
+import { firestore } from '../../helpers/firebase/storage/init.mjs';
 
 var pictures = [
 	'../../assets/img/image.jpg',
@@ -22,6 +23,8 @@ var pictures = [
 	'../../assets/img/wrench2.jpg'
 ];
 
+var activitiesFromDB = [];
+
 const CardView = () => {
 	const [images, setImages] = useState(pictures);
 
@@ -29,6 +32,28 @@ const CardView = () => {
 
 	const [currentIndex, setCurrentIndex] = useState(0);
 
+	const [activities, setActivities] = useState([]);
+
+	useEffect(() => {
+		updateList();
+	}, []);
+
+	useEffect(() => {
+		console.log(activities);
+	}, [activities]);
+
+	const updateList = () => {
+		firestore
+			.collection('activities')
+			.get()
+			.then(querySnapshot => {
+				const data = querySnapshot.docs.map(doc => {
+					return { id: doc.id, ...doc.data() };
+				});
+				setActivities(data);
+				activitiesFromDB = data;
+			});
+	};
 	const onSwipe = (direction, card) => {
 		console.log('You swiped: ' + direction);
 		if (direction == 'right') {
@@ -36,10 +61,9 @@ const CardView = () => {
 			listOfChosenCards.push(card);
 			setChosenCards(listOfChosenCards);
 		}
-
 		setCurrentIndex(i => i + 1);
-
 		console.log(chosenCards);
+		console.log(activities);
 	};
 
 	const onCardLeftScreen = myIdentifier => {
@@ -53,24 +77,22 @@ const CardView = () => {
 			<link href="https://fonts.googleapis.com/css?family=Damion&display=swap" rel="stylesheet" />
 			<link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet" />
 
-			<Grid columns={4}>
-				<GridChild style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-					<CardViewStyled>
-						<div className="cardContainer">
-							{images.map(picture => (
-								<TinderCard
-									key={picture}
-									className="swipe"
-									onSwipe={dir => onSwipe(dir, picture)}
-									onCardLeftScreen={() => onCardLeftScreen('fooBar')}
-								>
-									<div style={{ backgroundImage: 'url(' + picture + ')' }} className="card"></div>
-								</TinderCard>
-							))}
-						</div>
-					</CardViewStyled>
-				</GridChild>
-			</Grid>
+			<CardViewStyled>
+				<div className="cardContainer">
+					{images.map(picture => (
+						<TinderCard
+							key={picture}
+							className="swipe"
+							onSwipe={dir => onSwipe(dir, picture)}
+							onCardLeftScreen={() => onCardLeftScreen('fooBar')}
+							preventSwipe={['up', 'down']}
+						>
+							<div style={{ backgroundImage: 'url(' + picture + ')' }} className="card"></div>
+							{/*<img src = {picture}></img>*7*/}
+						</TinderCard>
+					))}
+				</div>
+			</CardViewStyled>
 		</div>
 	);
 };

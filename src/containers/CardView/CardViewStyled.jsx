@@ -54,17 +54,17 @@ const CardViewStyled = styled.div`
 	}
 
 	.cardContainer {
-		width: 90vw;
+		width: 105vw;
 		max-width: 260px;
-		height: 300px;
+		height: 850px;
 	}
 
 	.card {
 		position: relative;
 		background-color: #fff;
-		width: 80vw;
-		max-width: 260px;
-		height: 300px;
+		width: 105vw;
+		max-width: auto;
+		height: 850px;
 		box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
 		border-radius: 20px;
 		background-size: cover;
@@ -78,22 +78,10 @@ const CardViewStyled = styled.div`
 
 	.swipe:last-of-type {
 	}
-	.cardContainer {
-		width: 90vw;
-		max-width: 260px;
-		height: 300px;
-	}
 
-	.card {
-		position: relative;
-		background-color: #fff;
-		width: 80vw;
-		max-width: 260px;
-		height: 300px;
-		box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
-		border-radius: 20px;
-		background-size: cover;
-		background-position: center;
+	img {
+		width: 300px;
+		height: 900px;
 	}
 `;
 

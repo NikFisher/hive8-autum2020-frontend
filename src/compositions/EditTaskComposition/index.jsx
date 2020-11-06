@@ -57,7 +57,7 @@ const EditTaskComposition = props => {
 				//console.log(data);
 				setAllTasks(data);
 			});
-	}, [allTasks, setAllTasks]);
+	}, [setAllTasks]);
 
 	const onSaveClick = e => {
 		firestore
