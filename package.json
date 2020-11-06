@@ -3,7 +3,7 @@
 	"main": "index.jsx",
 	"license": "MIT",
 	"author": "",
-	"version": "0.0.15",
+	"version": "0.0.16",
 	"config": {
 		"siteUrl": "https://project.netlify.com"
 	},

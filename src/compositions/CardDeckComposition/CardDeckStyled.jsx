@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import fontWeights from 'tokens/fontWeights.mjs';
+/*import fontWeights from 'tokens/fontWeights.mjs';
 import fontSizes from 'tokens/fontSizes.mjs';
 import spacing from 'tokens/spacing.mjs';
-import colors from 'tokens/colors.mjs';
+import colors from 'tokens/colors.mjs';*/
 
 const CardViewStyled = styled.div`
 	#root {
@@ -60,13 +60,12 @@ const CardViewStyled = styled.div`
 	}
 
 	.card {
-		position: relative;
 		background-color: #fff;
-		width: 105vw;
+		width: 100vw;
 		max-width: auto;
 		height: 850px;
 		box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
-		border-radius: 20px;
+
 		background-size: cover;
 		background-position: center;
 	}
@@ -80,7 +79,7 @@ const CardViewStyled = styled.div`
 	}
 
 	img {
-		width: 300px;
+		width: 105vw;
 		height: 900px;
 	}
 `;
