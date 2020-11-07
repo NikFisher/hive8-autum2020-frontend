@@ -54,17 +54,17 @@ const CardViewStyled = styled.div`
 	}
 
 	.cardContainer {
-		width: 105vw;
-		max-width: 260px;
-		height: 850px;
+		width: 90vw;
+		max-width: 90vw;
+		height: 700px;
 	}
 
 	.card {
+		margin-top: 5px;
 		background-color: #fff;
-		width: 100vw;
+		width: 90vw;
 		max-width: auto;
-		height: 850px;
-		box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
+		height: 700px;
 
 		background-size: cover;
 		background-position: center;

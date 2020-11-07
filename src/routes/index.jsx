@@ -28,6 +28,11 @@ const CardView = Loadable({
 	loading: () => <Loader />
 });
 
+const CollectionView = Loadable({
+	loader: () => import('containers/CollectionView'),
+	loading: () => <Loader />
+});
+
 class Routes extends React.Component {
 	constructor(props) {
 		super(props);
@@ -40,7 +45,7 @@ class Routes extends React.Component {
 	render() {
 		return (
 			<Switch>
-				<Route exact path="/" render={() => <CardView />} />
+				<Route exact path="/" render={() => <CollectionView />} />
 				<Route exact path="/examples" render={() => <ExamplesView />} />
 				<Route exact path="/todos" render={() => <TodoView />} />
 				<Route exact path="/edittaskview/:taskid" render={() => <EditTaskView />} />

@@ -11,12 +11,18 @@ import Box from '../../components/Box/index';
 import breakpoints from '../../helpers/constants/breakpoints.mjs';
 import image from '../../assets/img/image.jpg';
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
+import BottomNavBar from '../../components/BottomNavBar/index';
 
 import CardDeckComposition from '../../compositions/CardDeckComposition';
 
 class CardView extends React.Component {
 	render() {
-		return <CardDeckComposition></CardDeckComposition>;
+		return (
+			<div>
+				<CardDeckComposition></CardDeckComposition>
+				<BottomNavBar></BottomNavBar>
+			</div>
+		);
 	}
 }
 CardView.prototypes = {

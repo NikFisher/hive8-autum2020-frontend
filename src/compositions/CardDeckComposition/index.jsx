@@ -15,6 +15,7 @@ import CardDeckStyled from './CardDeckStyled';
 //import image from '../../assets/img/image.jpg';
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
 //import { storage }  from '../..helpers/firebase/storage/init.mjs'
+import BottomNavBar from '../../components/BottomNavBar/index';
 
 var pictures = [
 	'../../assets/img/image.jpg',
@@ -78,25 +79,28 @@ const CardDeckComposition = () => {
 		<div>
 			<link href="https://fonts.googleapis.com/css?family=Damion&display=swap" rel="stylesheet" />
 			<link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet" />
-
-			<CardDeckStyled>
-				<div className="cardContainer">
-					{activities.map(activity => (
-						<TinderCard
-							key={activity.images[0]}
-							className="swipe"
-							onSwipe={dir => onSwipe(dir, activity.images[0])}
-							onCardLeftScreen={() => onCardLeftScreen('fooBar')}
-							preventSwipe={['up', 'down']}
-						>
-							<div
-								style={{ backgroundImage: 'url(' + activity.images[0] + ')' }}
-								className="card"
-							></div>
-						</TinderCard>
-					))}
-				</div>
-			</CardDeckStyled>
+			<Grid>
+				<GridChild style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+					<CardDeckStyled>
+						<div className="cardContainer">
+							{activities.map(activity => (
+								<TinderCard
+									key={activity.images[0]}
+									className="swipe"
+									onSwipe={dir => onSwipe(dir, activity.images[0])}
+									onCardLeftScreen={() => onCardLeftScreen('fooBar')}
+									preventSwipe={['up', 'down']}
+								>
+									<div
+										style={{ backgroundImage: 'url(' + activity.images[0] + ')' }}
+										className="card"
+									></div>
+								</TinderCard>
+							))}
+						</div>
+					</CardDeckStyled>
+				</GridChild>
+			</Grid>
 		</div>
 	);
 };

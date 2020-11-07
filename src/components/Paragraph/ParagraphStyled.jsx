@@ -9,7 +9,7 @@ const ParagraphStyled = styled.p`
 	font-family: ${fontFamilies.fontRegular};
 	font-size: ${fontSizes.m};
 	line-height: ${lineHeights.m};
-	color: ${colors.white};
+	color: ${colors.gray};
 `;
 
 export default ParagraphStyled;
