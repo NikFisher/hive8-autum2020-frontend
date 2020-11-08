@@ -12,9 +12,9 @@ import Box from '../../components/Box/index';
 import breakpoints from '../../helpers/constants/breakpoints.mjs';
 
 import CardDeckStyled from './CardDeckStyled';
-//import image from '../../assets/img/image.jpg';
+
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
-//import { storage }  from '../..helpers/firebase/storage/init.mjs'
+
 import BottomNavBar from '../../components/BottomNavBar/index';
 
 var pictures = [

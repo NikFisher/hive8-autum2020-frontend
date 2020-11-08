@@ -10,6 +10,7 @@ import image from '../../assets/img/image.jpg';
 import image2 from '../../assets/img/saw.jpg';
 import CollectionCompositionStyled from './CollectionCompositionStyled';
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
+import { ReactSVG } from 'react-svg';
 
 const CollectionComposition = () => {
 	const [activities, setActivities] = useState([]);
@@ -36,6 +37,20 @@ const CollectionComposition = () => {
 				<Box>
 					<h1>Collections</h1>
 					<hr></hr>
+					<Grid columns={15}>
+						<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
+							<ReactSVG
+								src="../../assets/icons/left-arrow.svg"
+								beforeInjection={svg => {
+									svg.classList.add('svg');
+									svg.setAttribute('style', 'fill: #494949');
+								}}
+							/>
+						</GridChild>
+						<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
+							<p className="collections_link">Collections</p>
+						</GridChild>
+					</Grid>
 					<h2>A Mix of Sweden</h2>
 					<p>A mix of everything Sweden has to offer</p>
 					{/*<Grid columns={4}>

@@ -21,6 +21,21 @@ const BottomNavBarStyled = styled.div`
 		height: 50px;
 		margin-left: 15px;
 	}
+
+	.svg{
+		height: 50px;
+		width: 50px;
+		margin-left: 15px;
+		viewBox: 0 0 0 0;
+	}
+
+	.svg_clicked{
+		height: 50px;
+		width: 50px;
+		margin-left: 15px;
+		fill: #FECB00;
+		viewBox: 0 0 0 0;
+	}
 `;
 
 export default BottomNavBarStyled;

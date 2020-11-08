@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import Paragraph from '../../components/Paragraph/index';
-import fontFamilies from 'tokens/fontFamilies.mjs';
 
 const CollectionCompositionStyled = styled.div`
 	img {
@@ -34,6 +32,20 @@ const CollectionCompositionStyled = styled.div`
 
 		border-width: 0;
 		height: 10px;
+	}
+
+	.collections_link {
+		color: #494949;
+		margin-bottom: 0px;
+		margin-left: 0;
+	}
+
+	.svg {
+		width: 25px;
+		height: 25px;
+		margin-right: 0;
+		margin-left: 0;
+		margin-top: 5px;
 	}
 `;
 
