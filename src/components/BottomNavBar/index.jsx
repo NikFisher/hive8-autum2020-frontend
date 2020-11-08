@@ -13,7 +13,16 @@ import Box from '../Box/index';
 import { ReactSVG } from 'react-svg';
 
 const BottomNavBar = () => {
-	const [iconClass, setIconClass] = useState('svg');
+	const [searchIcon, setSearchIcon] = useState(
+		<ReactSVG
+			src="../../assets/icons/search3.svg"
+			beforeInjection={svg => {
+				svg.classList.add('svg');
+				svg.setAttribute('style', 'fill: #7E7E7E');
+			}}
+			onClick={() => iconClicked('../../assets/icons/search3.svg', 'search', 'gray')}
+		/>
+	);
 
 	const [homeIcon, setHomeIcon] = useState(
 		<ReactSVG
@@ -35,7 +44,6 @@ const BottomNavBar = () => {
 			onClick={() => iconClicked('../../assets/icons/heart.svg', 'heart', 'gray')}
 		/>
 	);
-
 	const iconClicked = (url, iconName, currentColor) => {
 		var newColor = '';
 		var newIcon = (
@@ -56,8 +64,10 @@ const BottomNavBar = () => {
 		);
 		if (iconName == 'home') {
 			setHomeIcon(newIcon);
-		} else {
+		} else if (iconName == 'heart') {
 			setHeartIcon(newIcon);
+		} else {
+			setSearchIcon(newIcon);
 		}
 	};
 
@@ -67,24 +77,12 @@ const BottomNavBar = () => {
 				<Box>
 					<Grid columns={3}>
 						<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
-							<ReactSVG
-								src="../../assets/icons/search3.svg"
-								beforeInjection={svg => {
-									svg.classList.add('svg');
-									svg.setAttribute('style', 'fill: #7E7E7E');
-								}}
-							/>
+							{searchIcon}
 						</GridChild>
 						<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
 							{homeIcon}
 						</GridChild>
 						<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
-							{/*<ReactSVG src = '../../assets/icons/heart.svg'
-								beforeInjection = {(svg) => {
-									svg.classList.add('svg')					
-									svg.setAttribute('style', 'fill: #7E7E7E')
-								}}
-							/>*/}
 							{heartIcon}
 						</GridChild>
 					</Grid>

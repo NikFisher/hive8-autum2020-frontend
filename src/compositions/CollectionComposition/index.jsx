@@ -11,6 +11,7 @@ import image2 from '../../assets/img/saw.jpg';
 import CollectionCompositionStyled from './CollectionCompositionStyled';
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
 import { ReactSVG } from 'react-svg';
+import { Link } from 'react-router-dom';
 
 const CollectionComposition = () => {
 	const [activities, setActivities] = useState([]);
@@ -37,34 +38,18 @@ const CollectionComposition = () => {
 				<Box>
 					<h1>Collections</h1>
 					<hr></hr>
-					<Grid columns={15}>
-						<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
-							<ReactSVG
-								src="../../assets/icons/left-arrow.svg"
-								beforeInjection={svg => {
-									svg.classList.add('svg');
-									svg.setAttribute('style', 'fill: #494949');
-								}}
-							/>
-						</GridChild>
-						<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
-							<p className="collections_link">Collections</p>
-						</GridChild>
-					</Grid>
+					<div className="collections">
+						<ReactSVG
+							src="../../assets/icons/left-arrow.svg"
+							beforeInjection={svg => {
+								svg.classList.add('svg');
+								svg.setAttribute('style', 'fill: #494949');
+							}}
+						/>
+						<p className="collections_link">Collections</p>
+					</div>
 					<h2>A Mix of Sweden</h2>
 					<p>A mix of everything Sweden has to offer</p>
-					{/*<Grid columns={4}>
-					<GridChild columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
-						<img src={image}></img>
-						<Paragraph>Title</Paragraph>
-					</GridChild>
-					<GridChild  columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 1 }]}>
-					</GridChild>
-					<GridChild columnSpan={[{ columns: 1}, { break: breakpoints.mobile, columns: 1 }]}>
-						<img src={image2}></img>
-						<Paragraph>Title</Paragraph>
-					</GridChild>
-					</Grid>	*/}
 					<Grid columns={4}>
 						{activities.map((activity, index) => {
 							return (
@@ -72,8 +57,16 @@ const CollectionComposition = () => {
 									key={activity + index}
 									columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 2 }]}
 								>
-									<img src={activity.images[0]}></img>
-									<p>{activity.name}</p>
+									<Link
+										to={{
+											pathname: `/activityview/${activity.id}`
+											//state: { taskObject: props.task }
+										}}
+										style={{ textDecoration: 'none' }}
+									>
+										<img src={activity.images[0]}></img>
+										<p>{activity.name}</p>
+									</Link>
 								</GridChild>
 							);
 						})}

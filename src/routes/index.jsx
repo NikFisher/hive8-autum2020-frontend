@@ -33,6 +33,11 @@ const CollectionView = Loadable({
 	loading: () => <Loader />
 });
 
+const ActivityView = Loadable({
+	loader: () => import('containers/ActivityView'),
+	loading: () => <Loader />
+});
+
 class Routes extends React.Component {
 	constructor(props) {
 		super(props);
@@ -50,6 +55,7 @@ class Routes extends React.Component {
 				<Route exact path="/todos" render={() => <TodoView />} />
 				<Route exact path="/edittaskview/:taskid" render={() => <EditTaskView />} />
 				<Route exact path="/someview" render={() => <SomeView />} />
+				<Route exact path="/activityview/:activityid" render={() => <ActivityView />} />
 				<Route render={() => <Redirect to="/" />} />
 			</Switch>
 		);

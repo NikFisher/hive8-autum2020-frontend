@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
-const CollectionCompositionStyled = styled.div`
-	img {
-		max-width: 40vw;
-		maxheight: 60vw;
-	}
-
+const ActivityInfoStyled = styled.div`
 	h1 {
 		margin-bottom: 0px;
 		font-family: Sweden Sans;
@@ -18,11 +13,12 @@ const CollectionCompositionStyled = styled.div`
 		font-family: Sweden Sans;
 		margin-bottom: 0;
 	}
+
 	p {
 		font-family: Sweden Sans;
 		font-size: 20px;
 		color: #000000;
-		margin-top: 5px;
+		margin-top: 20px;
 	}
 
 	hr {
@@ -35,7 +31,7 @@ const CollectionCompositionStyled = styled.div`
 		height: 10px;
 	}
 
-	.collections_link {
+	.collection_link {
 		color: #494949;
 		margin-bottom: 0px;
 		margin-left: 0;
@@ -50,10 +46,17 @@ const CollectionCompositionStyled = styled.div`
 		margin-top: 5px;
 	}
 
-	.collections {
+	.collection {
 		display: flex;
 		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	img {
+		max-height: 100%;
+		height: 100%;
+		width: 100%;
 	}
 `;
 
-export default CollectionCompositionStyled;
+export default ActivityInfoStyled;
