@@ -95,6 +95,10 @@ const ActivityInfo = props => {
 					<h2>{activity.name}</h2>
 					<hr></hr>
 					<p>{activity.description}</p>
+					<br></br>
+					<br></br>
+					<br></br>
+					<br></br>
 				</ActivityInfoStyled>
 			</Box>
 		</div>

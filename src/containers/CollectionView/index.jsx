@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import PropTypes, { node } from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -7,12 +8,18 @@ import BottomNavBar from '../../components/BottomNavBar/index';
 import CollectionComposition from '../../compositions/CollectionComposition';
 
 class CollectionView extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
 		return (
-			<div>
-				<CollectionComposition></CollectionComposition>
+			<View title="Collection view">
+				<CollectionComposition
+					selected={this.props.location.state.selection}
+				></CollectionComposition>
 				<BottomNavBar></BottomNavBar>
-			</div>
+			</View>
 		);
 	}
 }

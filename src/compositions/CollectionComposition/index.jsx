@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { Children, useEffect, useState } from 'react';
 import Grid from '../../components/Grid/index';
 import GridChild from '../../components/GridChild/index';
@@ -13,10 +14,16 @@ import { firestore } from '../../helpers/firebase/storage/init.mjs';
 import { ReactSVG } from 'react-svg';
 import { Link } from 'react-router-dom';
 
-const CollectionComposition = () => {
+import PropTypes from 'prop-types';
+
+const CollectionComposition = props => {
 	const [activities, setActivities] = useState([]);
 
+	const [selectedActivities, setSelectedActivities] = useState([]);
+
 	useEffect(() => {
+		console.log(props.selected);
+		setSelectedActivities(props.selected);
 		getData();
 	}, []);
 
@@ -51,7 +58,7 @@ const CollectionComposition = () => {
 					<h2>A Mix of Sweden</h2>
 					<p>A mix of everything Sweden has to offer</p>
 					<Grid columns={4}>
-						{activities.map((activity, index) => {
+						{selectedActivities.map((activity, index) => {
 							return (
 								<GridChild
 									key={activity + index}
@@ -73,11 +80,17 @@ const CollectionComposition = () => {
 					</Grid>
 				</Box>
 			</CollectionCompositionStyled>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
 		</div>
 	);
 };
 
-CollectionComposition.propTypes = {};
+CollectionComposition.propTypes = {
+	selected: PropTypes.array
+};
 
 CollectionComposition.defaultTypes = {};
 

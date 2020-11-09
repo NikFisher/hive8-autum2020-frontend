@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import PropTypes, { node } from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 
 //import View from './containers/View';
 import TinderCard from 'react-tinder-card';
@@ -31,12 +31,10 @@ var image =
 	'https://firebasestorage.googleapis.com/v0/b/hive-8.appspot.com/o/artipelag-from-above-photo-by-artipelag-CMSTe.width-2500_bhahcom.jpg?alt=media&token=e4927e98-56dd-4699-b154-e06db1a244ca';
 
 const CardDeckComposition = () => {
+	let history = useHistory();
 	const [images, setImages] = useState(pictures);
-
 	const [chosenCards, setChosenCards] = useState([]);
-
 	const [currentIndex, setCurrentIndex] = useState(0);
-
 	const [activities, setActivities] = useState([]);
 
 	useEffect(() => {
@@ -46,6 +44,16 @@ const CardDeckComposition = () => {
 	useEffect(() => {
 		console.log(activities);
 	}, [activities]);
+
+	useEffect(() => {
+		console.log(currentIndex);
+		if (currentIndex >= 3) {
+			history.push({
+				pathname: '/collectionview',
+				state: { selection: chosenCards }
+			});
+		}
+	}, [currentIndex]);
 
 	const updateList = () => {
 		firestore
@@ -67,8 +75,6 @@ const CardDeckComposition = () => {
 			setChosenCards(listOfChosenCards);
 		}
 		setCurrentIndex(i => i + 1);
-		console.log(chosenCards);
-		console.log(activities);
 	};
 
 	const onCardLeftScreen = myIdentifier => {
@@ -87,7 +93,7 @@ const CardDeckComposition = () => {
 								<TinderCard
 									key={activity.images[0]}
 									className="swipe"
-									onSwipe={dir => onSwipe(dir, activity.images[0])}
+									onSwipe={dir => onSwipe(dir, activity)}
 									onCardLeftScreen={() => onCardLeftScreen('fooBar')}
 									preventSwipe={['up', 'down']}
 								>
