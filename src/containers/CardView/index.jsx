@@ -20,7 +20,7 @@ class CardView extends React.Component {
 		return (
 			<div>
 				<CardDeckComposition></CardDeckComposition>
-				<BottomNavBar></BottomNavBar>
+				<BottomNavBar currentView="home"></BottomNavBar>
 			</div>
 		);
 	}

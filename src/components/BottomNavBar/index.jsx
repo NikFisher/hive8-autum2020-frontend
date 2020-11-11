@@ -12,7 +12,11 @@ import breakpoints from '../../helpers/constants/breakpoints.mjs';
 import Box from '../Box/index';
 import { ReactSVG } from 'react-svg';
 
-const BottomNavBar = () => {
+import { useHistory } from 'react-router-dom';
+
+const BottomNavBar = props => {
+	let history = useHistory();
+
 	const [searchIcon, setSearchIcon] = useState(
 		<ReactSVG
 			src="../../assets/icons/search3.svg"
@@ -31,7 +35,7 @@ const BottomNavBar = () => {
 				svg.classList.add('svg');
 				svg.setAttribute('style', 'fill: #7E7E7E');
 			}}
-			onClick={() => iconClicked('../../assets/icons/home.svg', 'home', 'gray')}
+			onClick={() => iconClicked('home')}
 		/>
 	);
 	const [heartIcon, setHeartIcon] = useState(
@@ -41,33 +45,51 @@ const BottomNavBar = () => {
 				svg.classList.add('svg');
 				svg.setAttribute('style', 'fill: #7E7E7E');
 			}}
-			onClick={() => iconClicked('../../assets/icons/heart.svg', 'heart', 'gray')}
+			onClick={() => iconClicked('heart')}
 		/>
 	);
-	const iconClicked = (url, iconName, currentColor) => {
-		var newColor = '';
+
+	useEffect(() => {
+		var url = '';
+		var iconName = '';
+		if (props.currentView == 'home') {
+			(url = '../../assets/icons/home.svg'), 'home', 'gray';
+			iconName = 'home';
+		} else {
+			(url = '../../assets/icons/heart.svg'), 'heart', 'gray';
+			iconName = 'heart';
+		}
+		makeYellow(url, props.currentView, iconName);
+	}, []);
+
+	const makeYellow = (url, currentView, iconName) => {
 		var newIcon = (
 			<ReactSVG
 				src={url}
 				beforeInjection={svg => {
 					svg.classList.add('svg');
-					if (currentColor == 'gray') {
-						svg.setAttribute('style', 'fill: #FECB00');
-						newColor = 'yellow';
-					} else {
-						svg.setAttribute('style', 'fill: #7E7E7E');
-						newColor = 'gray';
-					}
+					svg.setAttribute('style', 'fill: #FECB00');
 				}}
-				onClick={() => iconClicked(url, iconName, newColor)}
-			/>
+				onClick={() => iconClicked(iconName)}
+			></ReactSVG>
 		);
-		if (iconName == 'home') {
+		if (currentView == 'home') {
 			setHomeIcon(newIcon);
-		} else if (iconName == 'heart') {
+		} else if (currentView == 'collections') {
 			setHeartIcon(newIcon);
+		}
+	};
+	const iconClicked = iconName => {
+		//var newColor = '';
+
+		if (iconName == 'home') {
+			//setHomeIcon(newIcon);
+			history.push('/swipe');
+		} else if (iconName == 'heart') {
+			//setHeartIcon(newIcon);
+			history.push('/collections');
 		} else {
-			setSearchIcon(newIcon);
+			//setSearchIcon(newIcon);
 		}
 	};
 
@@ -92,7 +114,9 @@ const BottomNavBar = () => {
 	);
 };
 
-BottomNavBar.propTypes = {};
+BottomNavBar.propTypes = {
+	currentView: PropTypes.string
+};
 
 BottomNavBar.defautlTypes = {};
 

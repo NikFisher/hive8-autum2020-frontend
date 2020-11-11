@@ -16,14 +16,19 @@ import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
-const CollectionComposition = props => {
+const CollectionComposition = () => {
 	const [activities, setActivities] = useState([]);
 
 	const [selectedActivities, setSelectedActivities] = useState([]);
 
 	useEffect(() => {
-		console.log(props.selected);
-		setSelectedActivities(props.selected);
+		//console.log(props.selected);
+		//setSelectedActivities(props.selected);
+		let collections = localStorage.getItem('localCollections');
+		collections = JSON.parse(collections);
+		let collection = collections[0];
+		console.log(collection);
+		setSelectedActivities(collection.selectedActivities);
 		getData();
 	}, []);
 
@@ -38,23 +43,24 @@ const CollectionComposition = props => {
 				setActivities(data);
 			});
 	};
-
 	return (
 		<div>
 			<CollectionCompositionStyled>
 				<Box>
 					<h1>Collections</h1>
 					<hr></hr>
-					<div className="collections">
-						<ReactSVG
-							src="../../assets/icons/left-arrow.svg"
-							beforeInjection={svg => {
-								svg.classList.add('svg');
-								svg.setAttribute('style', 'fill: #494949');
-							}}
-						/>
-						<p className="collections_link">Collections</p>
-					</div>
+					<Link to="collectionsview" style={{ textDecoration: 'none' }}>
+						<div className="collections">
+							<ReactSVG
+								src="../../assets/icons/left-arrow.svg"
+								beforeInjection={svg => {
+									svg.classList.add('svg');
+									svg.setAttribute('style', 'fill: #494949');
+								}}
+							/>
+							<p className="collections_link">Collections</p>
+						</div>
+					</Link>
 					<h2>A Mix of Sweden</h2>
 					<p>A mix of everything Sweden has to offer</p>
 					<Grid columns={4}>
@@ -67,7 +73,7 @@ const CollectionComposition = props => {
 									<Link
 										to={{
 											pathname: `/activityview/${activity.id}`
-											//state: { taskObject: props.task }
+											//state: { activity: props.selected }
 										}}
 										style={{ textDecoration: 'none' }}
 									>
@@ -89,7 +95,7 @@ const CollectionComposition = props => {
 };
 
 CollectionComposition.propTypes = {
-	selected: PropTypes.array
+	//selected: PropTypes.array
 };
 
 CollectionComposition.defaultTypes = {};

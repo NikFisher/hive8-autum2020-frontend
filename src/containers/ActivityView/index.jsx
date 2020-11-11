@@ -16,7 +16,7 @@ class ActivityView extends React.Component {
 		return (
 			<div>
 				<ActivityInfo activityId={this.props.match.params.activityid}></ActivityInfo>
-				<BottomNavBar></BottomNavBar>
+				<BottomNavBar currentView="collections"></BottomNavBar>
 			</div>
 		);
 	}

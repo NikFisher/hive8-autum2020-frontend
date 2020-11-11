@@ -32,6 +32,7 @@ var image =
 
 const CardDeckComposition = () => {
 	let history = useHistory();
+
 	const [images, setImages] = useState(pictures);
 	const [chosenCards, setChosenCards] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,12 +47,21 @@ const CardDeckComposition = () => {
 	}, [activities]);
 
 	useEffect(() => {
-		console.log(currentIndex);
+		var collectionID = makeId(5);
 		if (currentIndex >= 3) {
 			history.push({
 				pathname: '/collectionview',
 				state: { selection: chosenCards }
 			});
+			let newCollection = {
+				id: collectionID,
+				name: 'A Mix of Sweden',
+				description: 'A mix of things Sweden has to offer',
+				image: chosenCards[0].images[0],
+				selectedActivities: chosenCards
+			};
+			const collections = [newCollection];
+			localStorage.setItem('localCollections', JSON.stringify(collections));
 		}
 	}, [currentIndex]);
 
@@ -65,6 +75,7 @@ const CardDeckComposition = () => {
 				});
 				setActivities(data);
 				activitiesFromDB = data;
+				setCurrentIndex(activities.length);
 			});
 	};
 	const onSwipe = (direction, card) => {
@@ -75,10 +86,23 @@ const CardDeckComposition = () => {
 			setChosenCards(listOfChosenCards);
 		}
 		setCurrentIndex(i => i + 1);
+		console.log(currentIndex);
+		console.log(chosenCards);
+		//console.log(activities.length)
 	};
 
 	const onCardLeftScreen = myIdentifier => {
 		console.log(myIdentifier + ' left the screen');
+	};
+
+	const makeId = length => {
+		var result = '';
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		var charactersLength = characters.length;
+		for (var i = 0; i < length; i++) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		}
+		return result;
 	};
 
 	return (

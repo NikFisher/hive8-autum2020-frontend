@@ -15,10 +15,8 @@ class CollectionView extends React.Component {
 	render() {
 		return (
 			<View title="Collection view">
-				<CollectionComposition
-					selected={this.props.location.state.selection}
-				></CollectionComposition>
-				<BottomNavBar></BottomNavBar>
+				<CollectionComposition></CollectionComposition>
+				<BottomNavBar currentView="collections"></BottomNavBar>
 			</View>
 		);
 	}

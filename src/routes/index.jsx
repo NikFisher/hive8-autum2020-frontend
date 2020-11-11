@@ -38,6 +38,11 @@ const ActivityView = Loadable({
 	loading: () => <Loader />
 });
 
+const AllCollections = Loadable({
+	loader: () => import('containers/AllCollections'),
+	loading: () => <Loader />
+});
+
 class Routes extends React.Component {
 	constructor(props) {
 		super(props);
@@ -50,13 +55,15 @@ class Routes extends React.Component {
 	render() {
 		return (
 			<Switch>
-				<Route exact path="/" render={() => <CardView />} />
+				<Route exact path="/" render={() => <AllCollections />} />
 				<Route exact path="/examples" render={() => <ExamplesView />} />
 				<Route exact path="/todos" render={() => <TodoView />} />
 				<Route exact path="/edittaskview/:taskid" render={() => <EditTaskView />} />
 				<Route exact path="/someview" render={() => <SomeView />} />
 				<Route exact path="/collectionview" render={() => <CollectionView />} />
 				<Route exact path="/activityview/:activityid" render={() => <ActivityView />} />
+				<Route exact path="/collections" render={() => <AllCollections />} />
+				<Route exact path="/swipe" render={() => <CardView />} />
 				<Route render={() => <Redirect to="/" />} />
 			</Switch>
 		);
