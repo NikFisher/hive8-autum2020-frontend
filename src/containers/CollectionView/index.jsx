@@ -14,10 +14,13 @@ class CollectionView extends React.Component {
 
 	render() {
 		return (
-			<View title="Collection view">
-				<CollectionComposition></CollectionComposition>
+			<div>
+				<CollectionComposition
+					collectionId={this.props.match.params.collectionid}
+					collectionSource={this.props.match.params.source}
+				></CollectionComposition>
 				<BottomNavBar currentView="collections"></BottomNavBar>
-			</View>
+			</div>
 		);
 	}
 }

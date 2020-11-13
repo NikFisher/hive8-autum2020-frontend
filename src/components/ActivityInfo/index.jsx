@@ -68,7 +68,10 @@ const ActivityInfo = props => {
 				<ActivityInfoStyled>
 					<h1>Collections</h1>
 					<hr></hr>
-					<Link to="/collectionview" style={{ textDecoration: 'none' }}>
+					<Link
+						to={{ pathname: `/collections/${props.collectionSource}/${props.collectionId}` }}
+						style={{ textDecoration: 'none' }}
+					>
 						<div className="collection">
 							<ReactSVG
 								src="../../assets/icons/left-arrow.svg"
@@ -107,6 +110,8 @@ const ActivityInfo = props => {
 
 ActivityInfo.propTypes = {
 	activityId: PropTypes.string,
+	collectionId: PropTypes.string,
+	collectionSource: PropTypes.string,
 	activities: PropTypes.array
 };
 

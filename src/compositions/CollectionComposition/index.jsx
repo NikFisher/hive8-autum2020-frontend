@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
-const CollectionComposition = () => {
+const CollectionComposition = props => {
 	const [activities, setActivities] = useState([]);
 
 	const [selectedActivities, setSelectedActivities] = useState([]);
@@ -24,13 +24,20 @@ const CollectionComposition = () => {
 	useEffect(() => {
 		//console.log(props.selected);
 		//setSelectedActivities(props.selected);
+		//getData();
+		const source = props.collectionSource;
+		if (source == 'local') {
+			getFromLocalStorage();
+		}
+	}, []);
+
+	const getFromLocalStorage = () => {
 		let collections = localStorage.getItem('localCollections');
 		collections = JSON.parse(collections);
 		let collection = collections[0];
 		console.log(collection);
 		setSelectedActivities(collection.selectedActivities);
-		getData();
-	}, []);
+	};
 
 	const getData = () => {
 		firestore
@@ -49,7 +56,7 @@ const CollectionComposition = () => {
 				<Box>
 					<h1>Collections</h1>
 					<hr></hr>
-					<Link to="collectionsview" style={{ textDecoration: 'none' }}>
+					<Link to="/collections" style={{ textDecoration: 'none' }}>
 						<div className="collections">
 							<ReactSVG
 								src="../../assets/icons/left-arrow.svg"
@@ -72,7 +79,7 @@ const CollectionComposition = () => {
 								>
 									<Link
 										to={{
-											pathname: `/activityview/${activity.id}`
+											pathname: `/collections/${props.collectionSource}/${props.collectionId}/activities/${activity.id}`
 											//state: { activity: props.selected }
 										}}
 										style={{ textDecoration: 'none' }}
@@ -96,6 +103,8 @@ const CollectionComposition = () => {
 
 CollectionComposition.propTypes = {
 	//selected: PropTypes.array
+	collectionId: PropTypes.string,
+	collectionSource: PropTypes.string
 };
 
 CollectionComposition.defaultTypes = {};

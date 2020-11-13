@@ -60,8 +60,12 @@ class Routes extends React.Component {
 				<Route exact path="/todos" render={() => <TodoView />} />
 				<Route exact path="/edittaskview/:taskid" render={() => <EditTaskView />} />
 				<Route exact path="/someview" render={() => <SomeView />} />
-				<Route exact path="/collectionview" render={() => <CollectionView />} />
-				<Route exact path="/activityview/:activityid" render={() => <ActivityView />} />
+				<Route exact path="/collections/:source/:collectionid" render={() => <CollectionView />} />
+				<Route
+					exact
+					path="/collections/:source/:collectionid/activities/:activityid"
+					render={() => <ActivityView />}
+				/>
 				<Route exact path="/collections" render={() => <AllCollections />} />
 				<Route exact path="/swipe" render={() => <CardView />} />
 				<Route render={() => <Redirect to="/" />} />

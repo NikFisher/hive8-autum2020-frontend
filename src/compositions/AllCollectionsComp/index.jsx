@@ -13,21 +13,35 @@ import AllCollectionsCompStyled from './AllCollectionsCompStyled';
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
 import { ReactSVG } from 'react-svg';
 import { Link } from 'react-router-dom';
-
 import PropTypes from 'prop-types';
 
 const AllCollectionsComp = () => {
 	const [localCollections, setLocalCollections] = useState([]);
+	const [dbCollections, setdbCollections] = useState([]);
 
 	useEffect(() => {
 		getLocalCollections();
+		getDbCollections();
 	}, []);
 
 	const getLocalCollections = () => {
 		let data = localStorage.getItem('localCollections');
 		data = JSON.parse(data);
 		setLocalCollections(data);
-		console.log(data);
+		//console.log(data);
+	};
+
+	const getDbCollections = () => {
+		firestore
+			.collection('collections')
+			.get()
+			.then(querySnapshot => {
+				const data = querySnapshot.docs.map(doc => {
+					return { id: doc.id, ...doc.data() };
+				});
+				setdbCollections(data);
+				console.log(data);
+			});
 	};
 
 	return (
@@ -39,6 +53,16 @@ const AllCollectionsComp = () => {
 					<br></br>
 					<br></br>
 					<Grid columns={4}>
+						{dbCollections.map(collection => (
+							<GridChild
+								key={collection}
+								columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 2 }]}
+							>
+								<img src={collection.image}></img>
+								<h2>{collection.name}</h2>
+								<p>{collection.description}</p>
+							</GridChild>
+						))}
 						{localCollections.map(collection => (
 							<GridChild
 								key={collection}
@@ -46,7 +70,7 @@ const AllCollectionsComp = () => {
 							>
 								<Link
 									to={{
-										pathname: '/collectionview'
+										pathname: `/collections/local/${collection.id}`
 									}}
 									style={{ textDecoration: 'none' }}
 								>
