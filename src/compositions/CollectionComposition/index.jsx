@@ -17,6 +17,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const CollectionComposition = props => {
+	const [collection, setCollection] = useState({
+		id: '',
+		name: '',
+		description: '',
+		activities: []
+	});
 	const [activities, setActivities] = useState([]);
 
 	const [selectedActivities, setSelectedActivities] = useState([]);
@@ -28,6 +34,11 @@ const CollectionComposition = props => {
 		const source = props.collectionSource;
 		if (source == 'local') {
 			getFromLocalStorage();
+		} else if (source == 'db') {
+			getCollectionFromDb();
+			getAllActivities();
+			//getActivities(collection.activities)
+			//getActivities();
 		}
 	}, []);
 
@@ -35,11 +46,59 @@ const CollectionComposition = props => {
 		let collections = localStorage.getItem('localCollections');
 		collections = JSON.parse(collections);
 		let collection = collections[0];
-		console.log(collection);
+		//console.log(collection);
+		setCollection(collection);
 		setSelectedActivities(collection.selectedActivities);
 	};
 
-	const getData = () => {
+	const getCollectionFromDb = () => {
+		var docRef = firestore.collection('collections').doc(props.collectionId);
+		docRef
+			.get()
+			.then(function(doc) {
+				if (doc.exists) {
+					setCollection({
+						name: doc.data().name,
+						description: doc.data().description,
+						activities: doc.data().activities
+					});
+					getActivities(doc.data().activities);
+				} else {
+					console.log('No such document!');
+				}
+			})
+			.catch(function(error) {
+				console.log('Error getting document:', error);
+			});
+	};
+	const getActivities = collActivities => {
+		console.log(collActivities);
+		collActivities.map(activity => {
+			getActivity(activity);
+			//activityList.push(selectedActivity)
+		});
+		//console.log(activityList)
+		//setSelectedActivities(activityList)
+	};
+
+	const getActivity = activityId => {
+		//let activity = {}
+		var docRef = firestore.collection('activities').doc(activityId);
+		docRef
+			.get()
+			.then(function(doc) {
+				if (doc.exists) {
+					setSelectedActivities([...selectedActivities, { id: activityId, ...doc.data() }]);
+				} else {
+					console.log('No such document!');
+				}
+			})
+			.catch(function(error) {
+				console.log('Error getting document:', error);
+			});
+	};
+
+	const getAllActivities = () => {
 		firestore
 			.collection('activities')
 			.get()
@@ -68,10 +127,11 @@ const CollectionComposition = props => {
 							<p className="collections_link">Collections</p>
 						</div>
 					</Link>
-					<h2>A Mix of Sweden</h2>
-					<p>A mix of everything Sweden has to offer</p>
+					<h2>{collection.name}</h2>
+					<p>{collection.description}</p>
 					<Grid columns={4}>
 						{selectedActivities.map((activity, index) => {
+							console.log(activity);
 							return (
 								<GridChild
 									key={activity + index}
@@ -84,8 +144,8 @@ const CollectionComposition = props => {
 										}}
 										style={{ textDecoration: 'none' }}
 									>
-										<img src={activity.images[0]}></img>
-										<p>{activity.name}</p>
+										{activity.images && <img src={activity.images[0]}></img>}
+										{activity.name && <p>{activity.name}</p>}
 									</Link>
 								</GridChild>
 							);

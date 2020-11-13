@@ -58,9 +58,16 @@ const AllCollectionsComp = () => {
 								key={collection}
 								columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 2 }]}
 							>
-								<img src={collection.image}></img>
-								<h2>{collection.name}</h2>
-								<p>{collection.description}</p>
+								<Link
+									to={{
+										pathname: `/collections/db/${collection.id}`
+									}}
+									style={{ textDecoration: 'none' }}
+								>
+									<img src={collection.image}></img>
+									<h2>{collection.name}</h2>
+									<p>{collection.description}</p>
+								</Link>
 							</GridChild>
 						))}
 						{localCollections.map(collection => (
