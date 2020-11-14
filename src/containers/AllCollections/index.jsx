@@ -8,10 +8,10 @@ import AllCollectionsComp from '../../compositions/AllCollectionsComp';
 
 const AllCollections = () => {
 	return (
-		<View>
+		<div>
 			<AllCollectionsComp></AllCollectionsComp>
 			<BottomNavBar currentView="collections"></BottomNavBar>
-		</View>
+		</div>
 	);
 };
 

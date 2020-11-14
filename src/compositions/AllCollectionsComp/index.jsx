@@ -14,21 +14,24 @@ import { firestore } from '../../helpers/firebase/storage/init.mjs';
 import { ReactSVG } from 'react-svg';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import TabNav from '../../components/TabNav/index';
+import Tab from '../../components/Tab/index';
 
 const AllCollectionsComp = () => {
 	const [localCollections, setLocalCollections] = useState([]);
 	const [dbCollections, setdbCollections] = useState([]);
+	const [tabSelected, setTabSelected] = useState('Created by you');
 
 	useEffect(() => {
-		getLocalCollections();
 		getDbCollections();
+		getLocalCollections();
 	}, []);
 
 	const getLocalCollections = () => {
-		let data = localStorage.getItem('localCollections');
-		data = JSON.parse(data);
-		setLocalCollections(data);
-		//console.log(data);
+		//let data = localStorage.getItem('localCollections');
+		//data = JSON.parse(data)
+		setLocalCollections(JSON.parse(localStorage.getItem('localCollections')));
+		//console.log(data)
 	};
 
 	const getDbCollections = () => {
@@ -40,13 +43,76 @@ const AllCollectionsComp = () => {
 					return { id: doc.id, ...doc.data() };
 				});
 				setdbCollections(data);
-				console.log(data);
+				//console.log(data);
 			});
+	};
+
+	const setSelected = tab => {
+		setTabSelected(tab);
+		console.log(tab);
 	};
 
 	return (
 		<div>
-			<Box>
+			{
+				<Box>
+					<AllCollectionsCompStyled>
+						<h1>Collections</h1>
+						<hr></hr>
+						<br></br>
+
+						<TabNav
+							tabs={['Created by you', 'Created by us']}
+							selected={tabSelected}
+							setSelected={setSelected}
+						>
+							<Tab isSelected={tabSelected === 'Created by you'}>
+								<Grid columns={4}>
+									{localCollections.map(collection => (
+										<GridChild
+											key={collection}
+											columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 2 }]}
+										>
+											<Link
+												to={{
+													pathname: `/collections/db/${collection.id}`
+												}}
+												style={{ textDecoration: 'none' }}
+											>
+												<img src={collection.image}></img>
+												<h2>{collection.name}</h2>
+												<p>{collection.description}</p>
+											</Link>
+										</GridChild>
+									))}
+								</Grid>
+							</Tab>
+							<Tab isSelected={tabSelected === 'Created by us'}>
+								<Grid columns={4}>
+									{dbCollections.map(collection => (
+										<GridChild
+											key={collection}
+											columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 2 }]}
+										>
+											<Link
+												to={{
+													pathname: `/collections/db/${collection.id}`
+												}}
+												style={{ textDecoration: 'none' }}
+											>
+												<img src={collection.image}></img>
+												<h2>{collection.name}</h2>
+												<p>{collection.description}</p>
+											</Link>
+										</GridChild>
+									))}
+								</Grid>
+							</Tab>
+						</TabNav>
+					</AllCollectionsCompStyled>
+				</Box>
+			}
+			{/*<Box>
 				<AllCollectionsCompStyled>
 					<h1>Collections</h1>
 					<hr></hr>
@@ -89,7 +155,7 @@ const AllCollectionsComp = () => {
 						))}
 					</Grid>
 				</AllCollectionsCompStyled>
-			</Box>
+								</Box> */}
 		</div>
 	);
 };
