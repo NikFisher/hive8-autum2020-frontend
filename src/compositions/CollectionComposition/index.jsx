@@ -45,8 +45,11 @@ const CollectionComposition = props => {
 	const getFromLocalStorage = () => {
 		let collections = localStorage.getItem('localCollections');
 		collections = JSON.parse(collections);
-		let collection = collections[0];
-		//console.log(collection);
+		console.log(collections);
+		//let collection = collections.filter(function(c){return (c.id==props.collectionId)})
+		//let collection = collections[0]
+		var collection = collections.find(c => c.id == props.collectionId);
+		console.log(collection);
 		setCollection(collection);
 		setSelectedActivities(collection.selectedActivities);
 	};

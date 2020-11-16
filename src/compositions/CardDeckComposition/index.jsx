@@ -38,6 +38,7 @@ const CardDeckComposition = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [nameInput, setNameInput] = useState('');
 	const [descriptionInput, setDescriptionInput] = useState('');
+	const [noInputEntered, setNoInputEntered] = useState(true);
 
 	useEffect(() => {
 		updateList();
@@ -48,7 +49,7 @@ const CardDeckComposition = () => {
 	}, [activities]);
 
 	useEffect(() => {
-		if (currentIndex >= 0) {
+		if (currentIndex >= 4) {
 			setModalOpen(true);
 		}
 	}, [currentIndex]);
@@ -60,19 +61,42 @@ const CardDeckComposition = () => {
 			id: collectionID,
 			name: nameInput,
 			description: descriptionInput,
-			//image: chosenCards[0].images[0],
+			image: chosenCards[0].images[0],
 			selectedActivities: chosenCards
 		};
 
-		console.log(newCollection);
+		//console.log(newCollection);
 
-		/*const collections = [newCollection];
-		localStorage.setItem('localCollections', JSON.stringify(collections));
+		//const collections = [newCollection];
+		//let localCollections = []
+
+		if (localStorage.getItem('localCollections') === null) {
+			const localCollections = [newCollection];
+			localStorage.setItem('localCollections', JSON.stringify(localCollections));
+		} else {
+			let localCollections = localStorage.getItem('localCollections');
+			localCollections = JSON.parse(localCollections);
+			localCollections.push(newCollection);
+			localStorage.setItem('localCollections', JSON.stringify(localCollections));
+		}
+
+		//localCollections = JSON.parse(localCollections)
+
+		//localCollections.push(newCollection)
+
+		///console.log(localCollections)
+		//localStorage.setItem('localCollections', JSON.stringify(localCollections));
 
 		history.push({
-			pathname: '/collectionview',
+			pathname: `/collections/local/${collectionID}`,
 			state: { selection: chosenCards }
-		});*/
+		});
+	};
+
+	const discardClicked = () => {
+		history.push({
+			pathname: '/collections'
+		});
 	};
 
 	const updateList = () => {
@@ -117,11 +141,17 @@ const CardDeckComposition = () => {
 
 	const handleNameInputchange = e => {
 		setNameInput(e.target.value);
+		if (descriptionInput != '') {
+			setNoInputEntered(false);
+		}
 		//console.log(e.target.value)
 	};
 
 	const handleDescriptionInput = e => {
 		setDescriptionInput(e.target.value);
+		if (nameInput != '') {
+			setNoInputEntered(false);
+		}
 		//console.log(e.target.value);
 	};
 
@@ -153,7 +183,6 @@ const CardDeckComposition = () => {
 			</Grid>
 			<Modal open={modalOpen} className="modalContent">
 				<p>
-					{' '}
 					All the amazing activities and places have now been added to a list. Name the list and add
 					a short description to save it
 				</p>
@@ -169,8 +198,10 @@ const CardDeckComposition = () => {
 				<textarea value={descriptionInput} onChange={handleDescriptionInput}></textarea>
 				<br></br>
 				<br></br>
-				<button className="discardButton">Discard</button>
-				<button className="button" onClick={saveClicked}>
+				<button className="discardButton" onClick={discardClicked}>
+					Discard
+				</button>
+				<button className="button" onClick={saveClicked} disabled={noInputEntered}>
 					Save
 				</button>
 			</Modal>

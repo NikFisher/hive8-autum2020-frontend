@@ -68,20 +68,20 @@ const AllCollectionsComp = () => {
 						>
 							<Tab isSelected={tabSelected === 'Created by you'}>
 								<Grid columns={4}>
-									{localCollections.map(collection => (
+									{localCollections.map((localCollection, index) => (
 										<GridChild
-											key={collection}
+											key={localCollection + index}
 											columnSpan={[{ columns: 1 }, { break: breakpoints.mobile, columns: 2 }]}
 										>
 											<Link
 												to={{
-													pathname: `/collections/db/${collection.id}`
+													pathname: `/collections/local/${localCollection.id}`
 												}}
 												style={{ textDecoration: 'none' }}
 											>
-												<img src={collection.image}></img>
-												<h2>{collection.name}</h2>
-												<p>{collection.description}</p>
+												<img src={localCollection.image}></img>
+												<h2>{localCollection.name}</h2>
+												<p>{localCollection.description}</p>
 											</Link>
 										</GridChild>
 									))}
