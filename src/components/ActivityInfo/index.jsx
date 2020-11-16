@@ -80,7 +80,7 @@ const ActivityInfo = props => {
 									svg.setAttribute('style', 'fill: #494949');
 								}}
 							/>
-							<p className="collection_link">A Taste of Sweden</p>
+							<p className="collection_link">{props.collectionName}</p>
 						</div>
 					</Link>
 
@@ -112,7 +112,8 @@ ActivityInfo.propTypes = {
 	activityId: PropTypes.string,
 	collectionId: PropTypes.string,
 	collectionSource: PropTypes.string,
-	activities: PropTypes.array
+	activities: PropTypes.array,
+	collectionName: PropTypes.string
 };
 
 ActivityInfo.defautlTypes = {};

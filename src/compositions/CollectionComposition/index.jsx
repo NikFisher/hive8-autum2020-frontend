@@ -123,7 +123,7 @@ const CollectionComposition = props => {
 							<ReactSVG
 								src="../../assets/icons/left-arrow.svg"
 								beforeInjection={svg => {
-									svg.classList.add('svg');
+									//svg.classList.add('svg');
 									svg.setAttribute('style', 'fill: #494949');
 								}}
 							/>
@@ -142,8 +142,8 @@ const CollectionComposition = props => {
 								>
 									<Link
 										to={{
-											pathname: `/collections/${props.collectionSource}/${props.collectionId}/activities/${activity.id}`
-											//state: { activity: props.selected }
+											pathname: `/collections/${props.collectionSource}/${props.collectionId}/activities/${activity.id}`,
+											state: { collectionName: collection.name }
 										}}
 										style={{ textDecoration: 'none' }}
 									>

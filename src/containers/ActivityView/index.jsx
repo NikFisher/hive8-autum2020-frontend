@@ -19,6 +19,7 @@ class ActivityView extends React.Component {
 					activityId={this.props.match.params.activityid}
 					collectionId={this.props.match.params.collectionid}
 					collectionSource={this.props.match.params.source}
+					collectionName={this.props.location.state.collectionName}
 				></ActivityInfo>
 				<BottomNavBar currentView="collections"></BottomNavBar>
 			</div>

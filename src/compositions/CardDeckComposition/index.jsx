@@ -14,6 +14,7 @@ import breakpoints from '../../helpers/constants/breakpoints.mjs';
 import CardDeckStyled from './CardDeckStyled';
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
 import Modal from '../../components/Modal/index';
+import { ReactSVG } from 'react-svg';
 
 var pictures = [
 	'../../assets/img/image.jpg',
@@ -202,7 +203,17 @@ const CardDeckComposition = () => {
 					Discard
 				</button>
 				<button className="button" onClick={saveClicked} disabled={noInputEntered}>
-					Save
+					<div className="saveBtnContent">
+						Save
+						<ReactSVG
+							src="../../assets/icons/like.svg"
+							beforeInjection={svg => {
+								svg.classList.add('svg');
+								svg.setAttribute('style', 'position: relative');
+								svg.setAttribute('style', 'fill: #4C3D00');
+							}}
+						/>
+					</div>
 				</button>
 			</Modal>
 		</div>
