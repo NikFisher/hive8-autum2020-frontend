@@ -12,10 +12,8 @@ import Box from '../../components/Box/index';
 import breakpoints from '../../helpers/constants/breakpoints.mjs';
 
 import CardDeckStyled from './CardDeckStyled';
-
 import { firestore } from '../../helpers/firebase/storage/init.mjs';
-
-import BottomNavBar from '../../components/BottomNavBar/index';
+import Modal from '../../components/Modal/index';
 
 var pictures = [
 	'../../assets/img/image.jpg',
@@ -37,6 +35,9 @@ const CardDeckComposition = () => {
 	const [chosenCards, setChosenCards] = useState([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [activities, setActivities] = useState([]);
+	const [modalOpen, setModalOpen] = useState(false);
+	const [nameInput, setNameInput] = useState('');
+	const [descriptionInput, setDescriptionInput] = useState('');
 
 	useEffect(() => {
 		updateList();
@@ -47,23 +48,32 @@ const CardDeckComposition = () => {
 	}, [activities]);
 
 	useEffect(() => {
-		var collectionID = makeId(5);
-		if (currentIndex >= 3) {
-			history.push({
-				pathname: '/collectionview',
-				state: { selection: chosenCards }
-			});
-			let newCollection = {
-				id: collectionID,
-				name: 'A Mix of Sweden',
-				description: 'A mix of things Sweden has to offer',
-				image: chosenCards[0].images[0],
-				selectedActivities: chosenCards
-			};
-			const collections = [newCollection];
-			localStorage.setItem('localCollections', JSON.stringify(collections));
+		if (currentIndex >= 0) {
+			setModalOpen(true);
 		}
 	}, [currentIndex]);
+
+	const saveClicked = () => {
+		var collectionID = makeId(5);
+
+		let newCollection = {
+			id: collectionID,
+			name: nameInput,
+			description: descriptionInput,
+			//image: chosenCards[0].images[0],
+			selectedActivities: chosenCards
+		};
+
+		console.log(newCollection);
+
+		/*const collections = [newCollection];
+		localStorage.setItem('localCollections', JSON.stringify(collections));
+
+		history.push({
+			pathname: '/collectionview',
+			state: { selection: chosenCards }
+		});*/
+	};
 
 	const updateList = () => {
 		firestore
@@ -105,6 +115,16 @@ const CardDeckComposition = () => {
 		return result;
 	};
 
+	const handleNameInputchange = e => {
+		setNameInput(e.target.value);
+		//console.log(e.target.value)
+	};
+
+	const handleDescriptionInput = e => {
+		setDescriptionInput(e.target.value);
+		//console.log(e.target.value);
+	};
+
 	return (
 		<div>
 			<link href="https://fonts.googleapis.com/css?family=Damion&display=swap" rel="stylesheet" />
@@ -131,6 +151,29 @@ const CardDeckComposition = () => {
 					</CardDeckStyled>
 				</GridChild>
 			</Grid>
+			<Modal open={modalOpen} className="modalContent">
+				<p>
+					{' '}
+					All the amazing activities and places have now been added to a list. Name the list and add
+					a short description to save it
+				</p>
+
+				<p>Name of list</p>
+				<input
+					type="text"
+					value={nameInput}
+					className="nameInput"
+					onChange={handleNameInputchange}
+				></input>
+				<p>Description</p>
+				<textarea value={descriptionInput} onChange={handleDescriptionInput}></textarea>
+				<br></br>
+				<br></br>
+				<button className="discardButton">Discard</button>
+				<button className="button" onClick={saveClicked}>
+					Save
+				</button>
+			</Modal>
 		</div>
 	);
 };

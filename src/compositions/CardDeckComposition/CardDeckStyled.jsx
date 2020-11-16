@@ -82,6 +82,20 @@ const CardViewStyled = styled.div`
 		width: 105vw;
 		height: 900px;
 	}
+
+	.modalContent {
+		p {
+			color: #000000;
+			font-family: Sweden Sans;
+		}
+		.button {
+			background-color: #fecb00;
+		}
+	}
+
+	.button {
+		background-color: #fecb00;
+	}
 `;
 
 export default CardViewStyled;
