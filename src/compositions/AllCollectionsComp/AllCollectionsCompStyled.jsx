@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import SwedenSans from '../../assets/fonts/SwedenSansRegular.woff';
 
 const AllCollectionsCompStyled = styled.div`
+	@font-face {
+		font-family: Sweden Sans;
+		src: url(${SwedenSans}) format('woff');
+	}
 	img {
 		max-width: 40vw;
 		maxheight: 60vw;

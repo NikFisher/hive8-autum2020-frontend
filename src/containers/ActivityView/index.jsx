@@ -5,27 +5,27 @@ import { withRouter } from 'react-router-dom';
 import Loader from 'components/Loader';
 import View from 'containers/View';
 
-import ActivityInfo from '../../components/ActivityInfo/index';
+import ActivityInfo from '../../compositions/ActivityInfo/index';
 import BottomNavBar from '../../components/BottomNavBar/index';
 
-class ActivityView extends React.Component {
-	constructor(props) {
+const ActivityView = props => {
+	/*constructor(props) {
 		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<ActivityInfo
-					activityId={this.props.match.params.activityid}
-					collectionId={this.props.match.params.collectionid}
-					collectionSource={this.props.match.params.source}
-					collectionName={this.props.location.state.collectionName}
-				></ActivityInfo>
-				<BottomNavBar currentView="collections"></BottomNavBar>
-			</div>
-		);
-	}
-}
+	}*/
+
+	return (
+		<div>
+			<ActivityInfo
+				activityId={props.match.params.activityid}
+				collectionId={props.match.params.collectionid}
+				collectionSource={props.match.params.source}
+				collectionName={props.location.state.collectionName}
+			></ActivityInfo>
+
+			<BottomNavBar currentView="collections"></BottomNavBar>
+		</div>
+	);
+};
 
 ActivityView.prototypes = {
 	appState: PropTypes.object,

@@ -3,9 +3,6 @@ import React, { Children, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import BottomNavBarStyled from './BottomNavBarStyled';
-import icon from '../../assets/icons/searching-magnifying-glass.png';
-import icon2 from '../../assets/icons/home.png';
-import icon3 from '../../assets/icons/heart.png';
 import Grid from '../Grid/index';
 import GridChild from '../GridChild/index';
 import breakpoints from '../../helpers/constants/breakpoints.mjs';
@@ -55,10 +52,11 @@ const BottomNavBar = props => {
 		if (props.currentView == 'home') {
 			(url = '../../assets/icons/home.svg'), 'home', 'gray';
 			iconName = 'home';
-		} else {
+		} else if (props.currentView == 'collections') {
 			(url = '../../assets/icons/heart.svg'), 'heart', 'gray';
 			iconName = 'heart';
 		}
+		console.log(props.currentView);
 		makeYellow(url, props.currentView, iconName);
 	}, []);
 

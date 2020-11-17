@@ -65,7 +65,6 @@ const CardViewStyled = styled.div`
 		width: 90vw;
 		max-width: auto;
 		height: 700px;
-
 		background-size: cover;
 		background-position: center;
 	}

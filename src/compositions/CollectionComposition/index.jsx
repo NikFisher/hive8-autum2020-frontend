@@ -123,7 +123,7 @@ const CollectionComposition = props => {
 							<ReactSVG
 								src="../../assets/icons/left-arrow.svg"
 								beforeInjection={svg => {
-									//svg.classList.add('svg');
+									svg.classList.add('svg');
 									svg.setAttribute('style', 'fill: #494949');
 								}}
 							/>

@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import SwedenSans from '../../assets/fonts/SwedenSansRegular.woff';
 
 const CollectionCompositionStyled = styled.div`
+	@font-face {
+		font-family: Sweden Sans;
+		src: url(${SwedenSans}) format('woff');
+	}
 	img {
 		max-width: 40vw;
 		maxheight: 60vw;
@@ -38,15 +43,15 @@ const CollectionCompositionStyled = styled.div`
 	.collections_link {
 		color: #494949;
 		margin-bottom: 0px;
-		margin-left: 0;
-		margin-top: 5px;
+		margin-left: 0px;
+		margin-top: 7.5px;
 	}
 
 	.svg {
 		width: 25px;
 		height: 25px;
-		margin-right: 5px;
-		margin-left: 0;
+		margin-right: 10px;
+		margin-left: 5px;
 		margin-top: 5px;
 	}
 

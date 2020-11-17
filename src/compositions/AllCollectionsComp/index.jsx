@@ -23,28 +23,27 @@ const AllCollectionsComp = () => {
 	const [tabSelected, setTabSelected] = useState('Created by you');
 
 	useEffect(() => {
-		getDbCollections();
-		getLocalCollections();
+		const dbCol = getDbCollections();
+		dbCol.then(querySnapshot => {
+			const data = querySnapshot.docs.map(doc => {
+				return { id: doc.id, ...doc.data() };
+			});
+			setdbCollections(data);
+			//console.log(data);
+		});
+		setLocalCollections(getLocalCollections());
 	}, []);
 
 	const getLocalCollections = () => {
-		//let data = localStorage.getItem('localCollections');
+		const data = localStorage.getItem('localCollections');
 		//data = JSON.parse(data)
-		setLocalCollections(JSON.parse(localStorage.getItem('localCollections')));
+		return data ? JSON.parse(data) : [];
+
 		//console.log(data)
 	};
 
 	const getDbCollections = () => {
-		firestore
-			.collection('collections')
-			.get()
-			.then(querySnapshot => {
-				const data = querySnapshot.docs.map(doc => {
-					return { id: doc.id, ...doc.data() };
-				});
-				setdbCollections(data);
-				//console.log(data);
-			});
+		return firestore.collection('collections').get();
 	};
 
 	const setSelected = tab => {

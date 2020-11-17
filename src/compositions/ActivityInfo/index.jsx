@@ -75,13 +75,15 @@ const ActivityInfo = props => {
 						style={{ textDecoration: 'none' }}
 					>
 						<div className="collection">
-							<ReactSVG
-								src={arrowIcon}
-								beforeInjection={svg => {
-									svg.classList.add('svg');
-									svg.setAttribute('style', 'fill: #494949');
-								}}
-							/>
+							{
+								<ReactSVG
+									src={arrowIcon}
+									beforeInjection={svg => {
+										svg.classList.add('svg');
+										svg.setAttribute('style', 'fill: #494949');
+									}}
+								/>
+							}
 							<p className="collection_link">{props.collectionName}</p>
 						</div>
 					</Link>
@@ -114,7 +116,6 @@ ActivityInfo.propTypes = {
 	activityId: PropTypes.string,
 	collectionId: PropTypes.string,
 	collectionSource: PropTypes.string,
-	activities: PropTypes.array,
 	collectionName: PropTypes.string
 };
 

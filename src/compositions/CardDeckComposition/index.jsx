@@ -169,7 +169,8 @@ const CardDeckComposition = () => {
 									key={activity.images[0]}
 									className="swipe"
 									onSwipe={dir => onSwipe(dir, activity)}
-									onCardLeftScreen={() => onCardLeftScreen('fooBar')}
+									//onCardLeftScreen={() => onCardLeftScreen('fooBar')}
+									flickOnSwipe={true}
 									preventSwipe={['up', 'down']}
 								>
 									<div

@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import SwedenSans from '../../assets/fonts/SwedenSansRegular.woff';
 
 const ModalStyled = styled.div`
+	@font-face {
+		font-family: Sweden Sans;
+		src: url(${SwedenSans}) format('woff');
+	}
+
 	p {
 		color: #000000;
 		font-family: Sweden Sans;
